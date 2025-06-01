@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>The Big Bang and Beyond - Detailed Version</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap');
+
+  body {
+    margin: 0; padding: 0;
+    font-family: 'Orbitron', sans-serif;
+    background: radial-gradient(circle, #000 0%, #111 100%);
+    color: #f0f0f0;
+    scroll-behavior: smooth;
+  }
+  header {
+    background: linear-gradient(180deg, #000, #222);
+    text-align: center;
+    padding: 6rem 2rem 4rem 2rem;
+    position: relative;
+    overflow: hidden;
+  }
+  header h1 {
+    font-size: 3.8rem;
+    margin: 0;
+    animation: fadeIn 2s ease-out;
+    letter-spacing: 0.1em;
+  }
+  header p {
+    margin-top: 1rem;
+    font-size: 1.4rem;
+    color: #aaa;
+    animation: fadeIn 3s ease-out;
+  }
+  section {
+    padding: 5rem 3rem;
+    max-width: 900px;
+    margin: auto;
+    opacity: 0;
+    transform: translateY(50px);
+    transition: all 1s ease;
+  }
+  section.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  h2 {
+    font-size: 2.8rem;
+    margin-bottom: 1.5rem;
+    color: #ffcc00;
+    text-shadow: 0 0 10px #ffaa00;
+  }
+  p {
+    font-size: 1.2rem;
+    line-height: 1.8;
+  }
+  .note {
+    font-size: 0.95rem;
+    color: #89c4f4;
+    margin-top: 0.7rem;
+    font-style: italic;
+  }
+  img {
+    max-width: 100%;
+    height: auto;
+    margin-top: 2rem;
+    border-radius: 15px;
+    box-shadow: 0 0 25px rgba(255, 204, 0, 0.4);
+    border: 2px solid #444;
+  }
+  footer {
+    background: #111;
+    text-align: center;
+    padding: 2rem;
+    font-size: 0.9rem;
+    color: #aaa;
+  }
+  /* アニメーション */
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  /* インタラクティブグラフのスタイル */
+  #expansionChart {
+    margin-top: 3rem;
+    width: 100%;
+    height: 300px;
+  }
+</style>
+</head>
+<body>
+<header>
+  <h1>The Big Bang and Beyond</h1>
+  <p>Tracing the Origins and Evolution of Our Universe</p>
+</header>
+
+<section id="birth">
+  <h2>1. 宇宙誕生の瞬間 (The Birth of the Universe)</h2>
+  <p>
+    約138億年前、宇宙は無限に小さく、無限に高温・高密度の「特異点」状態から急激な膨張を開始しました。これを<strong>ビッグバン</strong>と呼びます。<br>
+    <strong>時空そのものがこの瞬間に誕生</strong>し、量子ゆらぎにより宇宙の大規模構造の種が生まれました。
+  </p>
+  <p class="note">※ <em>インフレーション理論</em>によると、この膨張は指数関数的で、宇宙の均一性と平坦性を説明します。</p>
+  <img src="images/bigbang.jpg" alt="The Big Bang illustration" />
+</section>
+
+<section id="cmb">
+  <h2>2. 最初の光（宇宙背景放射 / Cosmic Microwave Background, CMB）</h2>
+  <p>
+    ビッグバンから約38万年後、宇宙は十分に冷え、電子と陽子が結合して中性水素原子が形成されました。これにより光子が自由に伝搬可能となり、この最初の光が現在観測される<strong>宇宙マイクロ波背景放射 (CMB)</strong>です。<br>
+    CMBの微小な温度ゆらぎは、銀河やクラスターの起源を示しています。
+  </p>
+  <p class="note">※ <em>プランク衛星</em>の観測によりCMBの高精度マップが作成され、宇宙の年齢や成分比率が明らかになりました。</p>
+  <img src="images/cmb.jpg" alt="Cosmic Microwave Background" />
+</section>
+
+<section id="today">
+  <h2>3. 現在の観測と宇宙の加速膨張 (Accelerating Expansion Today)</h2>
+  <p>
+    宇宙は今も膨張を続けており、その膨張速度は<strong>加速</strong>しています。この加速の原因は、宇宙の約68%を占めるとされる<strong>ダークエネルギー</strong>によるものです。<br>
+    遠くの銀河の赤方偏移観測から、この現象が確認され、宇宙の将来を考える上で重要な課題となっています。
+  </p>
+  <p class="note">※ ΛCDMモデル（宇宙定数Λと冷たいダークマターCDMを組み合わせた標準宇宙モデル）が最も成功している理論です。</p>
+
+  <!-- ここに膨張のグラフを描画 -->
+  <canvas id="expansionChart"></canvas>
+  <p class="note">グラフは時間経過に伴う宇宙のスケールファクターの変化を示しています。</p>
+</section>
+
+<footer>
+  <p>Created by [Your Name] | Images from NASA, ESA, Planck Collaboration</p>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+  // Intersection Observerでセクションをフェードイン表示
+  const sections = document.querySelectorAll("section");
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) entry.target.classList.add("visible");
+    });
+  }, { threshold: 0.1 });
+  sections.forEach(section => observer.observe(section));
+
+  // Chart.jsで宇宙膨張のスケールファクター変化を描く
+  const ctx = document.getElementById('expansionChart').getContext('2d');
+  const data = {
+    labels: ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10'],
+    datasets: [{
+      label: '宇宙のスケールファクター a(t)',
+      data: [0, 0.01, 0.05, 0.2, 0.5, 0.8, 1, 1.3, 1.8, 2.5, 4],
+      borderColor: 'rgba(255, 204, 0, 0.8)',
+      backgroundColor: 'rgba(255, 204, 0, 0.2)',
+      fill: true,
+      tension: 0.4,
+      pointRadius: 5,
+      pointHoverRadius: 7,
+    }]
+  };
+  const options = {
+    responsive: true,
+    scales: {
+      x: { title: { display: true, text: '時間 (10億年)' } },
+      y: { title: { display: true, text: 'スケールファクター a(t)' }, beginAtZero: true }
+    },
+    plugins: {
+      legend: { labels: { color: '#fff' } },
+      tooltip: { mode: 'index', intersect: false }
+    }
+  };
+  new Chart(ctx, { type: 'line', data, options });
+</script>
+</body>
+</html>
